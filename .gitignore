@@ -3,3 +3,4 @@
 /env
 .env
 infinite_stories/__pycache__
+frontend/__pycache__
