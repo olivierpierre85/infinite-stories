@@ -1,3 +1,5 @@
 /.vscode
 /db.sqlite3
 /env
+.env
+infinite_stories/__pycache__
