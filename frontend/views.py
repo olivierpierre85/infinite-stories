@@ -6,6 +6,6 @@ def home(request):
         request,
         'frontend/index.html',
         {
-            'name': 'TEST'
+            'name': 'Preserving History'
         }
     )
