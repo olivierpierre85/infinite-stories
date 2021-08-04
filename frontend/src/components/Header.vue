@@ -1,6 +1,6 @@
 <template>
     <div class="nes-container nes-container-top header">
-        <strong>Infinite Stories - {{ name }}</strong>
+        <strong>{{ name }}</strong>
     </div>
 </template>
 
