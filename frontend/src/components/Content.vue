@@ -1,14 +1,16 @@
 <template>
   <div class="nes-container infinite-main">
-
       <Storyline/>
-      <section>
+      <div>
           <div class="nes-container with-title ">
               <p class="title">Your Answer</p>
-              <textarea id="textarea_field" class="nes-textarea"></textarea>
-              <button type="button" class="nes-btn" @click="sendResponse">Send</button>
+              <form>
+                <textarea id="textarea_field" class="nes-textarea" required v-model="newContent"></textarea>
+                <button type="button" class="nes-btn" @click="sendResponse">Send</button>
+                <button type="button" class="nes-btn" @click.alt="switchAdmin" v-bind:class="{ 'is-primary': isAdmin }">Admin</button>
+              </form>
           </div>
-      </section>
+      </div>
   </div>
 </template>
 
@@ -21,9 +23,18 @@ export default {
     components : {
         Storyline
     },
+    data() {
+        return {
+            newContent: '',
+            isAdmin: false
+        }
+    },
     methods : {
         sendResponse() {
-            alert('TODO send to api');
+            alert(this.newContent);
+        },
+        switchAdmin() {
+            this.isAdmin = ! this.isAdmin
         },
     }
 }

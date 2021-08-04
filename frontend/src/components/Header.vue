@@ -7,10 +7,6 @@
 <script>
 export default {
     name: "Header",
-    setup() {
-
-
-    },
 }
 </script>
 
