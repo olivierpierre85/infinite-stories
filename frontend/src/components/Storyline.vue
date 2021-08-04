@@ -4,7 +4,7 @@
               <div class="message">
                 <div class="message-img">
                     <img v-if="message.is_author" src="@/assets/mcpixel.png"/>
-                    <img v-else src="@/assets/yukiopixel.png"/>
+                    <img v-else src="@/assets/melipixel.png"/>
                 </div>
                 <div class="nes-container is-rounded is-dark is-message">
                     <p>{{ message.content }} </p>
@@ -20,15 +20,23 @@ export default {
     data () {        
         return { data: null }
     },
-    mounted() {
-        const ROOT_PATH ="http://127.0.0.1:8000" ;
-        //TODO replace filler data with actual values
-        fetch(ROOT_PATH + '/api/')
-            .then(response => response.json())
-            .then(data => {
-            console.log(data);
-            this.data = data;
-        });
+    // mounted() {
+    //     this.updateStoryline();
+    // },
+    created () {
+        this.updateStoryline();
+        this.timer = setInterval(this.updateStoryline, 1000);
+    },
+    methods : {
+        updateStoryline () {
+            const ROOT_PATH ="http://127.0.0.1:8000" ;
+            //TODO replace filler data with actual values
+            fetch(ROOT_PATH + '/api/')
+                .then(response => response.json())
+                .then(data => {
+                this.data = data;
+            });
+        }
     }
 }
 </script>

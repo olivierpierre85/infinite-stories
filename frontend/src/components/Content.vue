@@ -1,6 +1,6 @@
 <template>
   <div class="nes-container infinite-main">
-      <Storyline/>
+      <Storyline ref="storyline"/>
       <div>
           <div class="nes-container with-title ">
               <p class="title">Your Answer</p>
@@ -31,7 +31,18 @@ export default {
     },
     methods : {
         sendResponse() {
-            alert(this.newContent);
+            const ROOT_PATH ="http://127.0.0.1:8000" ;
+            //TODO replace filler data with actual values
+            fetch(ROOT_PATH + '/api/', {
+                method: 'POST',
+                body: JSON.stringify({'is_author' : this.isAdmin, 'content': this.newContent})
+            })
+            .then(response => { 
+                console.log(response)
+                this.newContent = "";
+                this.$refs.storyline.updateStoryline();
+                
+            });
         },
         switchAdmin() {
             this.isAdmin = ! this.isAdmin
