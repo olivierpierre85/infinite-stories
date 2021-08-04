@@ -1,73 +1,36 @@
 <template>
   <div class="nes-container infinite-main">
-      <!-- Balloon 'is-dark'  -->
-      <section class="nes-container is-dark">
-          <section class="message-list">
-              <section class="message -left">
-                <div class="message-img">
-                    <img src="@/assets/yukiopixel.png"/>
-                </div>
-                <!-- Balloon -->
-                <div class="nes-container is-rounded is-dark is-message">
-                    <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
-                  <p>It's disheartening to discover government corruption and incompetence, for example; but it is better not to know about it? Whose interest does ignorance serve? If we humans bear, say, hereditary propensities toward the hatred of strangers, isn't self-knowledge the only antidote? If we long to believe that the stars rise and set for us, that we are the reason there is a Universe, does science do us a disservice in deflating our conceits?</p>
-              
-                </div>                
-            </section>
-            <section class="message -left">
-                <div class="message-img">
-                    <img src="@/assets/yukiopixel.png"/>
-                </div>
-                <!-- Balloon -->
-                <div class="nes-balloon from-left is-dark">
-                    <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
-                  <p>It's disheartening to discover government corruption and incompetence, for example; but it is better not to know about it? Whose interest does ignorance serve? If we humans bear, say, hereditary propensities toward the hatred of strangers, isn't self-knowledge the only antidote? If we long to believe that the stars rise and set for us, that we are the reason there is a Universe, does science do us a disservice in deflating our conceits?</p>
-              
-                </div>
-                
-            </section>
-          </section>
-      </section>
 
+      <Storyline/>
       <section>
           <div class="nes-container with-title ">
-              <p class="title">Original Answer</p>
+              <p class="title">Your Answer</p>
               <textarea id="textarea_field" class="nes-textarea"></textarea>
-              <button type="button" class="nes-btn">Send</button>
+              <button type="button" class="nes-btn" @click="sendResponse">Send</button>
           </div>
       </section>
   </div>
 </template>
 
 <script>
+
+import Storyline from './Storyline.vue';
+
 export default {
     name: "Content",
-    setup() {
-
-
+    components : {
+        Storyline
     },
-    mounted () {
-        const ROOT_PATH ="http://127.0.0.1:8000" ;
-        //replace filler data with actual values
-        fetch(ROOT_PATH + '/api/')
-        .then(response => response.json())
-        .then(data => {
-        console.log(data);
-
-        for (var message in data) {
-            console.log(message)
-        }
-    });
-  }
+    methods : {
+        sendResponse() {
+            alert('TODO send to api');
+        },
+    }
 }
 </script>
 
 <style scoped>
-@media (max-width: 800px) {
-  .message {
-    flex-direction: column;
-  }
-}
+
 
 .btn-answer {
     margin-right : 15px;
@@ -78,18 +41,11 @@ export default {
     margin-bottom: 75px; 
     border-top: 0px;
 }
-.nes-container.is-message {
-    border-image-repeat: stretch!important;
-}
 
-.message-img {
-    position: relative;
-    display: inline-block;
-    width: 256px;
-    height: 256px;
-}
-
-.message {
-    display: flex;
+@media (max-width: 800px) {
+  .infinite-main  {
+    /*flex-direction: column;*/
+    padding: 0.5rem 1rem;
+  }
 }
 </style>
