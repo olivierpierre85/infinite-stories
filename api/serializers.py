@@ -4,7 +4,6 @@ from api.models import Storyline
 
 class StorylineSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(required=False, allow_blank=True, max_length=100)
     content = serializers.CharField(style={'base_template': 'textarea.html'})
 
     def create(self, validated_data):
