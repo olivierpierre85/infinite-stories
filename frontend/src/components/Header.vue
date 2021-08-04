@@ -1,6 +1,6 @@
 <template>
     <div class="nes-container nes-container-top header">
-        <strong>{{ name }}</strong>
+        <strong>Preserving History</strong>
     </div>
 </template>
 

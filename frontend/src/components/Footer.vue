@@ -1,6 +1,6 @@
 <template>
-    <div class="nes-container footer">
-        <strong>Progress Bar -> </strong>
+    <div class="nes-container footer" v-show="false">
+        <strong>Tool Bar to add</strong>
     </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="nes-container nes-container-main">
+  <div class="nes-container infinite-main">
       <!-- Balloon 'is-dark'  -->
       <section class="nes-container is-dark">
           <section class="message-list">
@@ -30,8 +30,6 @@
       </section>
 
       <section>
-                        <button type="button" class="nes-btn btn-answer">OK</button>
-              <button type="button" class="nes-btn btn-answer">I don't Know </button>
           <div class="nes-container with-title ">
               <p class="title">Original Answer</p>
               <textarea id="textarea_field" class="nes-textarea"></textarea>
@@ -48,10 +46,23 @@ export default {
 
 
     },
+    mounted () {
+        const ROOT_PATH ="http://127.0.0.1:8000" ;
+        //replace filler data with actual values
+        fetch(ROOT_PATH + '/api/')
+        .then(response => response.json())
+        .then(data => {
+        console.log(data);
+
+        for (var message in data) {
+            console.log(message)
+        }
+    });
+  }
 }
 </script>
 
-<style>
+<style scoped>
 @media (max-width: 800px) {
   .message {
     flex-direction: column;
@@ -62,7 +73,7 @@ export default {
     margin-right : 15px;
     margin-top : 10px;
 }
-.nes-container-main {
+.infinite-main {
     margin-top: 80px; 
     margin-bottom: 75px; 
     border-top: 0px;
