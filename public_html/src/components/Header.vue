@@ -1,6 +1,6 @@
 <template>
     <div class="nes-container nes-container-top header">
-        <strong>Preserving History</strong>
+        <strong>Time Transmitter</strong>
     </div>
 </template>
 
