@@ -20,19 +20,22 @@ export default {
     data () {        
         return { data: null }
     },
-    // mounted() {
-    //     this.updateStoryline();
-    // },
     created () {
         this.updateStoryline();
-        this.timer = setInterval(this.updateStoryline, 10000);
+        this.timer = setInterval(this.updateStoryline, 1000);  
+    },
+    updated () {
+        window.scrollTo(0,document.body.scrollHeight);
     },
     methods : {
         updateStoryline () {
             fetch(process.env.VUE_APP_API_URL)
                 .then(response => response.json())
                 .then(data => {
-                this.data = data;
+                //update Vdom only when new entries
+                if (this.data == null || this.data.length !== data.length){
+                    this.data = data;
+                }
             });
         }
     }
