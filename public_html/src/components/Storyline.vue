@@ -25,7 +25,7 @@ export default {
     // },
     created () {
         this.updateStoryline();
-        this.timer = setInterval(this.updateStoryline, 1000);
+        this.timer = setInterval(this.updateStoryline, 10000);
     },
     methods : {
         updateStoryline () {
