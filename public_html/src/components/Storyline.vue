@@ -1,10 +1,10 @@
 <template>
       <div class="nes-container is-dark">
-          <div class="message-list" v-for="(message, key) in data" v-bind:key="key">
-              <div class="message">
-                <div class="message-img">
-                    <img v-if="message.is_author && message.show_picture" src="https://static.olpiweb.be/infinite/mcpixel.png"/>
-                    <img v-else-if="message.show_picture" src="https://static.olpiweb.be/infinite/melipixel.png"/>
+          <div class="message-list" >
+              <div class="message" v-for="(message, key) in data" v-bind:key="key">
+                <div class="message-img" v-bind:class="{ 'user': ! message.is_author}">
+                    <img v-if="message.is_author && message.showPicture" src="https://static.olpiweb.be/infinite/mcpixel.png"/>
+                    <img v-else-if="message.showPicture" class="float-end" src="https://static.olpiweb.be/infinite/melipixel.png"/>
                 </div>
                 <div class="nes-container is-rounded is-dark is-message">
                     <p>{{ message.content }} </p>
@@ -39,9 +39,9 @@ export default {
                     for (let d in data) {
                         console.log(data[d].is_author );
                         if (previous == data[d].is_author) {
-                            data[d].show_picture = false;
+                            data[d].showPicture = false;
                         } else {
-                            data[d].show_picture = true;
+                            data[d].showPicture = true;
                         }
                         previous = data[d].is_author;
                     }
@@ -56,21 +56,21 @@ export default {
 <style scoped>
 .is-message {
     border-image-repeat: stretch!important;
+    clear: right;
 }
 .message-img {
     max-width: 100%;
     position: relative;
     display: inline-block;
 }
+.message-img.user {
+    float: right;
+}
 
 img {
     max-width: 100%;
 }
-/*
-.message {
-    display: flex;
-}
-*/
+
 @media (max-width: 800px) {
   .nes-container {
     /*flex-direction: column;*/
