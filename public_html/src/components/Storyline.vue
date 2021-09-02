@@ -42,7 +42,6 @@ export default {
                     //add values that computes if previous value is same character
                     let previous = null;
                     for (let d in data) {
-                        console.log(data[d].is_author );
                         if (previous == data[d].is_author) {
                             data[d].showPicture = false;
                         } else {
