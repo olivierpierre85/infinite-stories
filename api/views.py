@@ -4,12 +4,14 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from api.models import Storyline
 from api.serializers import StorylineSerializer
+from rest_framework.permissions import IsAuthenticated
 
 @csrf_exempt
 def storyline_list(request):
     """
     List all code storyline, or create a new storyline.
     """
+    #permission_classes = (IsAuthenticated,)
     if request.method == 'GET':
         storylines = Storyline.objects.all()
         serializer = StorylineSerializer(storylines, many=True)
