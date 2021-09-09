@@ -27,7 +27,7 @@ export default {
     },
     created () {
         this.updateStoryline();
-        this.timer = setInterval(this.updateStoryline, 1000);  
+        //this.timer = setInterval(this.updateStoryline, 1000);  
     },
     updated () {
         window.scrollTo(0,document.body.scrollHeight);

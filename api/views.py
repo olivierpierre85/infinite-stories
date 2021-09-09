@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from api.models import Storyline
+from api.models import Storyline, Story
 from api.serializers import StorylineSerializer
 from rest_framework.permissions import IsAuthenticated
 
@@ -15,6 +15,19 @@ from rest_framework.permissions import IsAuthenticated
 #             s.parent = Storyline.objects.get(pk=new_id)
 #             s.save()
 #     return HttpResponse(status=204)
+
+    # storylines = Storyline.objects.all()
+    # parent = None
+    # for s in storylines:
+    #     new_s = Storyline()
+    #     new_s.content =    s.content
+    #     new_s.is_author  =    s.is_author   
+    #     new_s.is_ending  =    s.is_ending   
+    #     if parent != None:
+    #         new_s.parent  =    StorylineTree.objects.get(pk=parent)      
+    #     new_s.save()
+    #     parent = new_s.id
+    # return HttpResponse(status=204)
 
 @csrf_exempt
 def storyline_list(request):
@@ -60,3 +73,23 @@ def storyline_detail(request, pk):
     elif request.method == 'DELETE':
         storyline.delete()
         return HttpResponse(status=204)
+
+def test_fct(request):
+    story = Story.objects.get(pk=1)
+    storylines = Storyline.objects.get(pk=story.last_storyline.id).get_ancestors(ascending=False, include_self=True)
+    serializer = StorylineSerializer(storylines, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def story_detail(request, pk):
+    """
+    Retrieve, update or delete a code Story.
+    """
+    try:
+        storyline = Storyline.objects.get(pk=pk)
+    except Storyline.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = StorylineSerializer(storyline)
+        return JsonResponse(serializer.data)

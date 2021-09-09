@@ -1,6 +1,10 @@
 from rest_framework import serializers
-from api.models import Storyline
+from api.models import Storyline, Story
 
+class StorySerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    is_author = serializers.BooleanField()
+    content = serializers.CharField(style={'base_template': 'textarea.html'})
 
 class StorylineSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
