@@ -6,6 +6,16 @@ from api.models import Storyline
 from api.serializers import StorylineSerializer
 from rest_framework.permissions import IsAuthenticated
 
+# Used once to update all system
+# def update_olds(request):
+#     storylines = Storyline.objects.all()
+#     for s in storylines:
+#         new_id = (s.id-1)
+#         if new_id > 19:
+#             s.parent = Storyline.objects.get(pk=new_id)
+#             s.save()
+#     return HttpResponse(status=204)
+
 @csrf_exempt
 def storyline_list(request):
     """

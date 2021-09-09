@@ -6,5 +6,5 @@ urlpatterns = [
     path('api-token/', TokenObtainPairView.as_view()),
     path('api-token-refresh/', TokenRefreshView.as_view()),
     path('', views.storyline_list),
-    path('<int:pk>/', views.storyline_detail),
+    path('<int:pk>/', views.storyline_detail)
 ]
