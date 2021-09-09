@@ -12,7 +12,7 @@
         <div class="nes-field">
           <input type="password" name="password" id="pass" v-model="password" class="nes-input" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+        <button type="submit" class="nes-btn">Login</button>
       </form>
     </div>
   </div>
