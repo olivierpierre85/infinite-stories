@@ -26,6 +26,7 @@ export default {
         return { 
             data: null, 
             isLoading: true,
+            isEnd: false,
         }
     },
     created () {
@@ -52,11 +53,16 @@ export default {
                             data[d].showPicture = true;
                         }
                         previous = data[d].is_author;
+                                            //Check if last Storyline is an END
                     }
                     if (this.data == null) {
                         this.isLoading = false;
                     }
                     this.data = data;
+
+                    if(data.at(-1)["is_ending"]){
+                        this.isEnd = true;
+                    }
                     
                 }
             });
