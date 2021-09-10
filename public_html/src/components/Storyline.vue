@@ -23,10 +23,14 @@
 export default {
     name : "Storyline",
     data () {        
-        return { data: null, isLoading: true }
+        return { 
+            data: null, 
+            isLoading: true,
+        }
     },
     created () {
-        this.updateStoryline();
+        if(this.$route.params.storyId)
+            this.updateStoryline();
         //this.timer = setInterval(this.updateStoryline, 1000);  
     },
     updated () {
@@ -34,7 +38,7 @@ export default {
     },
     methods : {
         updateStoryline () {
-            fetch(process.env.VUE_APP_API_URL)
+            fetch(process.env.VUE_APP_API_URL + this.$route.params.storyId)
                 .then(response => response.json())
                 .then(data => {
                 //update Vdom only when new entries
