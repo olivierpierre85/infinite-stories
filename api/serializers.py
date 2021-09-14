@@ -10,6 +10,7 @@ class StorylineSerializer(serializers.Serializer):
     is_author = serializers.BooleanField()
     is_ending = serializers.BooleanField()
     content = serializers.CharField(style={'base_template': 'textarea.html'})
+    parent = serializers.IntegerField(read_only=True)
 
     def create(self, validated_data):
         """

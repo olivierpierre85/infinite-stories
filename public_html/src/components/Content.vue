@@ -1,50 +1,65 @@
 <template>
   <div class="nes-container infinite-main">
-      <Storyline ref="storyline"/>
-      <div>
-          <div class="nes-container with-title ">
-              <p class="title">Your Answer</p>
-              <form>
-                <textarea id="textarea_field" class="nes-textarea" required v-model="newContent"></textarea>
-                <button type="button" class="nes-btn" @click="sendResponse">Send</button>
-                <button type="button" class="nes-btn" @click.alt="switchAdmin" v-bind:class="{ 'is-primary': isAdmin }">Admin</button>
-              </form>
-          </div>
-      </div>
+      LastStoryline: {{ lastStoryLine }}
+      <Storyline :data="data" />
+      <AnswerBox :lastStoryLine="lastStoryLine"/>
   </div>
 </template>
 
 <script>
 
 import Storyline from './Storyline.vue';
+import AnswerBox from './AnswerBox.vue';
 
 export default {
     name: "Content",
     components : {
-        Storyline
+        Storyline,
+        AnswerBox
     },
-    data() {
-        return {
-            newContent: '',
-            isAdmin: false
+    data () {        
+        return { 
+            data: null, 
+            isLoading: true,
+            isEnd: false,
+            lastStoryLine:null,
         }
     },
+    created () {
+        if(this.$route.params.storyId)
+            this.updateStoryline();
+        //this.timer = setInterval(this.updateStoryline, 1000);  
+    },
     methods : {
-        sendResponse() {
-            fetch(process.env.VUE_APP_API_URL, {
-                method: 'POST',
-                body: JSON.stringify({'is_author' : this.isAdmin, 'content': this.newContent})
-            })
-            .then(response => { 
-                console.log(response)
-                this.newContent = "";
-                this.$refs.storyline.updateStoryline();
-                
+        updateStoryline () {
+            fetch(process.env.VUE_APP_API_URL + this.$route.params.storyId)
+                .then(response => response.json())
+                .then(data => {
+                //update Vdom only when new entries
+                if (this.data == null || this.data.length !== data.length) {
+                    //add values that computes if previous value is same character
+                    let previous = null;
+                    for (let d in data) {
+                        if (previous == data[d].is_author) {
+                            data[d].showPicture = false;
+                        } else {
+                            data[d].showPicture = true;
+                        }
+                        previous = data[d].is_author;
+                                            //Check if last Storyline is an END
+                    }
+                    if (this.data == null) {
+                        this.isLoading = false;
+                    }
+                    this.data = data;
+                    this.lastStoryLine= data.at(-1).id;
+
+                    if(data.at(-1)["is_ending"]){
+                        this.isEnd = true;
+                    }
+                }
             });
-        },
-        switchAdmin() {
-            this.isAdmin = ! this.isAdmin
-        },
+        }
     }
 }
 </script>

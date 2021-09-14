@@ -22,52 +22,12 @@
 <script>
 export default {
     name : "Storyline",
-    data () {        
-        return { 
-            data: null, 
-            isLoading: true,
-            isEnd: false,
-        }
-    },
-    created () {
-        if(this.$route.params.storyId)
-            this.updateStoryline();
-        //this.timer = setInterval(this.updateStoryline, 1000);  
+    props : {
+        data : Object
     },
     updated () {
         window.scrollTo(0,document.body.scrollHeight);
     },
-    methods : {
-        updateStoryline () {
-            fetch(process.env.VUE_APP_API_URL + this.$route.params.storyId)
-                .then(response => response.json())
-                .then(data => {
-                //update Vdom only when new entries
-                if (this.data == null || this.data.length !== data.length) {
-                    //add values that computes if previous value is same character
-                    let previous = null;
-                    for (let d in data) {
-                        if (previous == data[d].is_author) {
-                            data[d].showPicture = false;
-                        } else {
-                            data[d].showPicture = true;
-                        }
-                        previous = data[d].is_author;
-                                            //Check if last Storyline is an END
-                    }
-                    if (this.data == null) {
-                        this.isLoading = false;
-                    }
-                    this.data = data;
-
-                    if(data.at(-1)["is_ending"]){
-                        this.isEnd = true;
-                    }
-                    
-                }
-            });
-        }
-    }
 }
 </script>
 
