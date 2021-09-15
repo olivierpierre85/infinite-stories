@@ -1,8 +1,7 @@
 <template>
   <div class="nes-container infinite-main">
-      LastStoryline: {{ lastStoryLine }}
       <Storyline :data="data" />
-      <AnswerBox :lastStoryLine="lastStoryLine"/>
+      <AnswerBox :lastStoryLine="lastStoryLine" @newMessage="updateStoryline"/>
   </div>
 </template>
 

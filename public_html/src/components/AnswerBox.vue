@@ -27,12 +27,12 @@ export default {
         sendResponse() {
             fetch(process.env.VUE_APP_API_URL + this.$route.params.storyId , {
                 method: 'POST',
-                body: JSON.stringify({'is_author' : this.isAdmin, 'is_ending':this.isEnding, 'content': this.newContent, 'parent': this.lastStoryLine})
+                body: JSON.stringify({'is_author' : this.isAdmin, 'is_ending':this.isEnding, 'content': this.newContent, 'parent': {'id' : this.lastStoryLine}})
             })
             .then(response => { 
                 console.log(response)
                 this.newContent = "";
-                //this.$refs.storyline.updateStoryline();                
+                this.$emit('newMessage');                
             });
         },
         switchAdmin() {

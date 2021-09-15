@@ -5,12 +5,15 @@ class StorySerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     content = serializers.CharField(style={'base_template': 'textarea.html'})
 
+class StorylineParentSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+
 class StorylineSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     is_author = serializers.BooleanField()
     is_ending = serializers.BooleanField()
     content = serializers.CharField(style={'base_template': 'textarea.html'})
-    parent = serializers.IntegerField(read_only=True)
+    parent = StorylineParentSerializer()
 
     def create(self, validated_data):
         """

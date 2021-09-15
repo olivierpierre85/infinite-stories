@@ -7,7 +7,7 @@ from api.serializers import StorylineSerializer
 from rest_framework.permissions import IsAuthenticated
 
 @csrf_exempt
-def story_detail(request, pk=1):
+def story_detail(request, pk=3):
     """
     Retrieve, update or delete a code Story.
     """
@@ -25,11 +25,22 @@ def story_detail(request, pk=1):
     
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = StorylineSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        try:
+            new_storyline = Storyline()
+
+            new_storyline.is_author = data["is_author"]
+            new_storyline.is_ending = data["is_ending"]
+            new_storyline.content = data["content"]
+            new_storyline.parent = Storyline.objects.get(pk=data["parent"]["id"])
+            new_storyline.save()
+
+            # Update the last storyline of the story
+            story.last_storyline = new_storyline
+            story.save()
+
+            return HttpResponse(status=201)
+        except :
+            return HttpResponse(status=400)
 
 @csrf_exempt
 def storyline_detail(request, pk):
