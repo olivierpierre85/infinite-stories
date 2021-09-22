@@ -7,7 +7,7 @@ from api.serializers import StorylineSerializer
 from rest_framework.permissions import IsAuthenticated
 
 @csrf_exempt
-def story_detail(request, pk=3):
+def story_detail(request, pk):
     """
     Retrieve, update or delete a code Story.
     """
@@ -26,17 +26,24 @@ def story_detail(request, pk=3):
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         try:
-            new_storyline = Storyline()
+            previous_storyline = Storyline.objects.get(pk=data["parent"]["id"])
 
-            new_storyline.is_author = data["is_author"]
-            new_storyline.is_ending = data["is_ending"]
-            new_storyline.content = data["content"]
-            new_storyline.parent = Storyline.objects.get(pk=data["parent"]["id"])
-            new_storyline.save()
+            if data["is_author"] == previous_storyline.is_author :
+                # When same author, just concat the text to last storyline
+                previous_storyline.content += "\r\n\r\n" + data["content"]
+                previous_storyline.save()
+            else:
+                new_storyline = Storyline()
 
-            # Update the last storyline of the story
-            story.last_storyline = new_storyline
-            story.save()
+                new_storyline.is_author = data["is_author"]
+                new_storyline.is_ending = data["is_ending"]
+                new_storyline.content = data["content"]
+                new_storyline.parent = Storyline.objects.get(pk=data["parent"]["id"])
+                new_storyline.save()
+
+                # Update the last storyline of the story
+                story.last_storyline = new_storyline
+                story.save()
 
             return HttpResponse(status=201)
         except :

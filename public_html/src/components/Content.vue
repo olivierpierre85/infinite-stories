@@ -34,8 +34,8 @@ export default {
             fetch(process.env.VUE_APP_API_URL + this.$route.params.storyId)
                 .then(response => response.json())
                 .then(data => {
-                //update Vdom only when new entries
-                if (this.data == null || this.data.length !== data.length) {
+                //update Vdom only when new entries (NOT WORKING when changing content)
+                //if (this.data == null || this.data.length !== data.length) {
                     //add values that computes if previous value is same character
                     let previous = null;
                     for (let d in data) {
@@ -50,13 +50,15 @@ export default {
                     if (this.data == null) {
                         this.isLoading = false;
                     }
+
                     this.data = data;
                     this.lastStoryLine= data.at(-1).id;
 
                     if(data.at(-1)["is_ending"]){
                         this.isEnd = true;
                     }
-                }
+                    this.$forceUpdate();
+                //}
             });
         }
     }

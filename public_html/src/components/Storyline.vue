@@ -7,7 +7,7 @@
                         <img v-else-if="message.showPicture" class="float-end" src="https://static.olpiweb.be/infinite/melipixel.png"/>
                     </div>
                     <div class="nes-container is-rounded is-dark is-message">
-                        <p>{{ message.content }} </p>
+                        <p><pre>{{ message.content }}</pre></p>
                     </div>                
                 </div>
                 <div v-if="isLoading" class="message" >
