@@ -1,7 +1,7 @@
 <template>
   <div class="nes-container infinite-main">
-      <Storyline :data="data" />
-      <AnswerBox :lastStoryLine="lastStoryLine" @newMessage="updateStoryline"/>
+      <Storyline :data="data" :isEnd="isEnd" :isLoading="isLoading"/>
+      <AnswerBox :lastStoryLine="lastStoryLine" @newMessage="updateStoryline" :isEnd="isEnd" />
   </div>
 </template>
 

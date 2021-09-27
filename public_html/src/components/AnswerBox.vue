@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="nes-container with-title ">
+        <div v-if="! isEnd" class="nes-container with-title ">
             <p class="title">Your Answer</p>
             <form>
             <textarea id="textarea_field" class="nes-textarea" required v-model="newContent"></textarea>
@@ -8,19 +8,27 @@
             <button type="button" class="nes-btn" @click.alt="switchAdmin" v-bind:class="{ 'is-primary': isAdmin }">Admin</button>
             </form>
         </div>
+        <div v-if="isEnd" class="nes-container with-title ">
+            <p class="title">You died</p>
+            <p>That's ok, You can still try again. </p>
+            <p>Select one of your preview response and change it. 
+                The story will start again at that point, so you can improve your answers to achieve a better ending
+                </p>
+        </div>
     </div>
 </template>
 <script>
 export default {
     name: "AnswerBox",
     props : {
-        lastStoryLine : String
+        lastStoryLine : Number,
+        isEnd : Boolean,
     },
     data() {
         return {
             newContent: '',
             isAdmin: false,
-            isEnding: true
+            isEnding: false
         }
     },
     methods : {

@@ -6,9 +6,14 @@
                         <img v-if="message.is_author && message.showPicture" src="https://static.olpiweb.be/infinite/mcpixel.png"/>
                         <img v-else-if="message.showPicture" class="float-end" src="https://static.olpiweb.be/infinite/melipixel.png"/>
                     </div>
-                    <div class="nes-container is-rounded is-dark is-message">
+                    <!-- Ending adds blinking for your dialog -->
+                    <div v-if="! isEnd || ! message.is_author" class="nes-container is-rounded is-dark is-message blinking">
                         <p><pre>{{ message.content }}</pre></p>
-                    </div>                
+                    </div>        
+                     <!-- Normal text  -->
+                    <div v-else class="nes-container is-rounded is-dark is-message">
+                        <p><pre>{{ message.content }}</pre></p>
+                    </div>             
                 </div>
                 <div v-if="isLoading" class="message" >
                     <div class="nes-container is-rounded is-dark is-message">
@@ -23,7 +28,9 @@
 export default {
     name : "Storyline",
     props : {
-        data : Object
+        data : Object,
+        isEnd : Boolean,
+        //isLoading: Boolean
     },
     updated () {
         window.scrollTo(0,document.body.scrollHeight);
@@ -32,15 +39,29 @@ export default {
 </script>
 
 <style scoped>
+
 .is-message {
     border-image-repeat: stretch!important;
     clear: right;
 }
+
+.blinking {
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+  to { border-image-source:url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="8" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z" fill="rgb(33,37,41)" /></svg>'); }
+}
+
 .message-img {
     max-width: 100%;
     position: relative;
     display: inline-block;
 }
+
 .message-img.user {
     float: right;
 }
