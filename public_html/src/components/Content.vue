@@ -19,13 +19,14 @@ export default {
     data () {        
         return { 
             data: null, 
-            isLoading: true,
+            isLoading: null,
             isEnd: false,
             lastStoryLine:null,
         }
     },
-    created () {
+    mounted () {
         if(this.$route.params.storyId)
+            this.isLoading = true;
             this.updateStoryline();
         //this.timer = setInterval(this.updateStoryline, 1000);  
     },

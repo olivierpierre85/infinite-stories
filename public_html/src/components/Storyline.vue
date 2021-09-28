@@ -6,9 +6,17 @@
                         <img v-if="message.is_author && message.showPicture" src="https://static.olpiweb.be/infinite/mcpixel.png"/>
                         <img v-else-if="message.showPicture" class="float-end" src="https://static.olpiweb.be/infinite/melipixel.png"/>
                     </div>
-                    <!-- Ending adds blinking for your dialog -->
-                    <div v-if="! isEnd || ! message.is_author" class="nes-container is-rounded is-dark is-message blinking">
-                        <p><pre>{{ message.content }}</pre></p>
+                    <!-- Ending adds blinking for your dialog, is also clikable -->
+                    <div v-if="isEnd && ! message.is_author"  class="nes-container is-rounded is-dark is-message blinking" >
+                        <p>
+                            <pre>{{ message.content }}</pre>                        
+                        </p>
+
+                        <div v-if="showRestart">
+                            <button type="button" class="nes-btn is-warning restart-button" @click="restartStoryline(message.id)">
+                                Restart Here
+                            </button>
+                        </div>    
                     </div>        
                      <!-- Normal text  -->
                     <div v-else class="nes-container is-rounded is-dark is-message">
@@ -30,16 +38,32 @@ export default {
     props : {
         data : Object,
         isEnd : Boolean,
-        //isLoading: Boolean
+        isLoading: Boolean,
     },
-    updated () {
+    data () {        
+        return { 
+            showRestart : true,
+        }
+    },
+    created () {
         window.scrollTo(0,document.body.scrollHeight);
     },
+    methods: {
+        restartStoryline(id) {
+            confirm("Are you sure you want to restart ? : ")
+            console.log(id)
+            //TODO Rebase story to storyline above this one (id)
+            
+        }
+    }
 }
 </script>
 
 <style scoped>
 
+.restart-button {
+    width: 100%;
+}
 .is-message {
     border-image-repeat: stretch!important;
     clear: right;
