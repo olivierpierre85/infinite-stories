@@ -1,7 +1,7 @@
 <template>
   <div class="nes-container infinite-main">
-      <Storyline :data="data" :isEnd="isEnd" :isLoading="isLoading"/>
-      <AnswerBox :lastStoryLine="lastStoryLine" @newMessage="updateStoryline" :isEnd="isEnd" />
+      <Storyline :data="data" :isEnd="isEnd" :isLoading="isLoading" @newMessage="updateStoryline"/>
+      <AnswerBox :lastStoryLine="lastStoryLine" :isEnd="isEnd" @newMessage="updateStoryline"  />
   </div>
 </template>
 
@@ -57,8 +57,9 @@ export default {
 
                     if(data.at(-1)["is_ending"]){
                         this.isEnd = true;
+                    } else {
+                        this.isEnd = false;
                     }
-                    this.$forceUpdate();
                 //}
             });
         }

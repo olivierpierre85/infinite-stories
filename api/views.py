@@ -74,3 +74,19 @@ def storyline_detail(request, pk):
     elif request.method == 'DELETE':
         storyline.delete()
         return HttpResponse(status=204)
+
+@csrf_exempt
+def storyline_restart(request, s_pk, pk):
+    """
+    Rebase story to selected storyline
+    """
+    try:
+        story = Story.objects.get(pk=s_pk)
+        last_storyline = Storyline.objects.get(pk=pk)
+
+        story.last_storyline = last_storyline.parent
+        story.save()
+
+        return HttpResponse(status=204)
+    except Storyline.DoesNotExist:
+        return HttpResponse(status=404)

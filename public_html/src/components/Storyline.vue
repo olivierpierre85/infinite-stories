@@ -50,10 +50,18 @@ export default {
     },
     methods: {
         restartStoryline(id) {
-            confirm("Are you sure you want to restart ? : ")
-            console.log(id)
-            //TODO Rebase story to storyline above this one (id)
+            if ( confirm("Are you sure you want to restart ? : ") ) {
+                //Rebase story to storyline above this one (id)
+                fetch(process.env.VUE_APP_API_URL + 'restart/' + this.$route.params.storyId + '/' + id)
+                .then(response => { 
+                    console.log(response)
+                    this.newContent = "";
+                    this.$emit('newMessage');                
+                });
+            }
             
+            
+
         }
     }
 }

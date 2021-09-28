@@ -9,7 +9,7 @@
             </form>
         </div>
         <div v-if="isEnd" class="nes-container with-title ">
-            <p class="title">You died</p>
+            <p class="title">The End</p>
             <p>That's ok, You can still try again. </p>
             <p>Select one of your preview response and change it. 
                 The story will start again at that point, so you can improve your answers to achieve a better ending
