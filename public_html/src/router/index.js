@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Content from '../components/Content.vue'
 import Login from '../components/Login.vue'
 import Logout from '../components/Logout.vue'
+import Home from '../views/Home.vue'
 
 
 
@@ -19,7 +20,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Content
+    component: Home
   },  
   {
     path: '/:storyId',

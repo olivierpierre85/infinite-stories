@@ -1,7 +1,9 @@
 <template>
   <div>
   <Header/>
-  <router-view></router-view>
+  <div class="nes-container main-content">
+    <router-view></router-view>
+  </div>
   <Footer/>
   </div>
 </template>
@@ -28,5 +30,18 @@ html, body, pre, code, kbd, samp {
 
 body.modal-open {
   overflow: hidden;
+}
+
+.main-content {
+  margin-top: 80px; 
+  margin-bottom: 75px; 
+  border-top: 0px;
+}
+
+
+@media (max-width: 800px) {
+  .main-content  {
+    padding: 0.5rem 1rem;
+  }
 }
 </style>

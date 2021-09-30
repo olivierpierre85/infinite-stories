@@ -45,7 +45,7 @@ export default {
             showRestart : true,
         }
     },
-    created () {
+    updated () {
         window.scrollTo(0,document.body.scrollHeight);
     },
     methods: {
@@ -59,9 +59,6 @@ export default {
                     this.$emit('newMessage');                
                 });
             }
-            
-            
-
         }
     }
 }

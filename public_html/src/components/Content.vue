@@ -1,5 +1,5 @@
 <template>
-  <div class="nes-container infinite-main">
+  <div>
       <Storyline :data="data" :isEnd="isEnd" :isLoading="isLoading" @newMessage="updateStoryline"/>
       <AnswerBox :lastStoryLine="lastStoryLine" :isEnd="isEnd" @newMessage="updateStoryline"  />
   </div>
@@ -69,21 +69,9 @@ export default {
 
 <style scoped>
 
-
 .btn-answer {
     margin-right : 15px;
     margin-top : 10px;
 }
-.infinite-main {
-    margin-top: 80px; 
-    margin-bottom: 75px; 
-    border-top: 0px;
-}
 
-@media (max-width: 800px) {
-  .infinite-main  {
-    /*flex-direction: column;*/
-    padding: 0.5rem 1rem;
-  }
-}
 </style>
