@@ -4,8 +4,8 @@ import { getAPI } from '../axios-api'
 export const store = createStore({
     state () {
       return {
-            accessToken: null,
-            refreshToken: null,
+            accessToken: localStorage.getItem('accessToken') || null ,
+            refreshToken: localStorage.getItem('refreshToken') || null ,
             APIData: ''
       }
     },
@@ -13,6 +13,9 @@ export const store = createStore({
         updateStorage (state, { access, refresh }) {
           state.accessToken = access
           state.refreshToken = refresh
+
+          localStorage.accessToken = access
+          localStorage.refreshToken = refresh
         },
         destroyToken (state) {
           state.accessToken = null

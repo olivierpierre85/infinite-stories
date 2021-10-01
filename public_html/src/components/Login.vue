@@ -36,6 +36,7 @@
           password: this.password
         })
         .then(() => {
+          //Only one story by users now
           this.$router.push({ name: 'Home' })
         })
         .catch(err => {

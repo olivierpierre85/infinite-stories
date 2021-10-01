@@ -25,14 +25,25 @@ export default {
         }
     },
     mounted () {
-        if(this.$route.params.storyId)
-            this.isLoading = true;
-            this.updateStoryline();
+        this.isLoading = true;
+        this.updateStoryline();
+
         //this.timer = setInterval(this.updateStoryline, 1000);  
     },
     methods : {
         updateStoryline () {
-            fetch(process.env.VUE_APP_API_URL + this.$route.params.storyId)
+
+            let storyId = 8;
+            if(this.$route.params.storyId) {
+                storyId = this.$route.params.storyId;
+                this.fetchStory(storyId);
+            } else {
+                //TODO get last Story id from current logged user
+                storyId = 8;
+            }
+        },
+        fetchStory(storyId) {
+            fetch(process.env.VUE_APP_API_URL + storyId)
                 .then(response => response.json())
                 .then(data => {
                 //update Vdom only when new entries (NOT WORKING when changing content)
