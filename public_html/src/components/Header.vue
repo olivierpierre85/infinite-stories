@@ -1,8 +1,6 @@
 <template>
     <div class="nes-container nes-container-top header">
         <strong>Time Transmitter</strong>
-
-        <button type="button" class="nes-btn is-success" @click="toggleInfo" >Info</button>
     </div>
 </template>
 

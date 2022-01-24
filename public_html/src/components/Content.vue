@@ -1,7 +1,13 @@
 <template>
   <div>
-      <Storyline :data="data" :isEnd="isEnd" :isLoading="isLoading" @newMessage="updateStoryline"/>
-      <AnswerBox :lastStoryLine="lastStoryLine" :isEnd="isEnd" @newMessage="updateStoryline"  />
+      <template v-if="showInfo">
+          <Info />
+      </template>
+      <template v-else>
+        <Storyline :data="data" :isEnd="isEnd" :isLoading="isLoading" @newMessage="updateStoryline"/>
+        <AnswerBox :lastStoryLine="lastStoryLine" :isEnd="isEnd" @newMessage="updateStoryline"  />
+      </template>
+
   </div>
 </template>
 
@@ -9,13 +15,19 @@
 
 import Storyline from './Storyline.vue';
 import AnswerBox from './AnswerBox.vue';
+import Info from './Info.vue';
+import { mapState } from 'vuex'
 
 export default {
     name: "Content",
     components : {
         Storyline,
-        AnswerBox
+        AnswerBox,
+        Info
     },
+    computed: mapState([
+        'showInfo'
+    ]),
     data () {        
         return { 
             data: null, 

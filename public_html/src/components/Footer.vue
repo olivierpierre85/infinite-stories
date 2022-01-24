@@ -1,21 +1,33 @@
 <template>
-    <div class="nes-container footer" v-show="false">
-        <strong>Tool Bar to add</strong>
+    <div class="nes-container footer" v-show="true">
+        <button type="button" class="nes-btn is-success footer-btn" @click="switchShowInfo" >Info</button>
+        <button type="button" class="nes-btn" @click.alt="switchAdmin" v-bind:class="{ 'is-primary': isAdmin }">Admin</button>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: "Footer",
-    setup() {
-
-
-    },
+    computed: mapState([
+        'isAdmin'
+    ]),
+    methods : {
+        switchAdmin() {
+            this.$store.dispatch('switchAdmin')
+        },
+        switchShowInfo() {
+            this.$store.dispatch('switchShowInfo')
+        },
+    }
 }
 </script>
 
-<style>
-
+<style scoped>
+.footer-btn {
+    margin-right:15px;
+}
 .footer {
     position: fixed;
     height: 80px;
@@ -25,5 +37,6 @@ export default {
     background-color: white;
     color: black;
     text-align: center;
+    padding:5px;
   }
 </style>

@@ -6,7 +6,9 @@ export const store = createStore({
       return {
             accessToken: localStorage.getItem('accessToken') || null ,
             refreshToken: localStorage.getItem('refreshToken') || null ,
-            APIData: ''
+            APIData: '',
+            isAdmin: false,
+            showInfo: false,
       }
     },
     mutations: {
@@ -20,14 +22,33 @@ export const store = createStore({
         destroyToken (state) {
           state.accessToken = null
           state.refreshToken = null
+        },
+        updateAdmin (state) {
+          state.isAdmin = ! state.isAdmin
+        },
+        updateShowInfo (state) {
+          console.log("Wata")
+          state.showInfo = ! state.showInfo
         }
       },
       getters: {
         loggedIn (state) {
           return state.accessToken != null
+        },
+        isAdmin (state) {
+          return state.isAdmin
+        },
+        showInfo (state) {
+          return state.showInfo
         }
       },
       actions: {
+        switchAdmin (context) {
+          context.commit('updateAdmin')
+        },
+        switchShowInfo (context) {
+          context.commit('updateShowInfo')
+        },
         userLogout (context) {
           if (context.getters.loggedIn) {
               context.commit('destroyToken')
