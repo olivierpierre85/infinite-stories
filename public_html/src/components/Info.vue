@@ -1,6 +1,9 @@
 <template>
     <div class="wrapper">
-        <div class="header-info">       
+        <div class="header-info nes-container is-dark">
+            <span class="header-story-date">
+                {{ formattedStoryDate }}
+            </span>   
             <div class="header-health">
                 Health : 
                 <i class="nes-icon is-small heart" v-for="index in currentStoryLine.health" :key="index"></i>
@@ -12,19 +15,16 @@
                 <i class="nes-icon is-small is-transparent heart" v-for="index in (5-currentStoryLine.wealth)" :key="index"></i>
             </div>
         </div>
-        <div class="main-container ">
-            Map
+        <div class="main-container nes-container is-dark">
             <canvas style="width: 100%;"  id="demo"></canvas>
-            <!-- <img style="width: 100%;" src="https://static.olpiweb.be/infinite/worldmap.png"/>   -->
         </div>
-        <div class="aside aside-2"> 
-            <span class="header-story-date">
-                {{ formattedStoryDate }}
-            </span>
+        <div class="aside aside-2 nes-container is-dark"> 
+            Latest News
             <hr/>
-            <h3 class="header-paper-title h3">
+            <h2 class="header-paper-title h3">
                 {{ currentStoryLine.papers_headline }}
-            </h3>
+            </h2>
+            <br/>
             <div class="header-paper-content">
                 {{ currentStoryLine.papers_content }}
             </div>
@@ -153,6 +153,7 @@ export default {
 
 .wrapper > * {
   padding: 10px;
+  margin: 5px;
   flex: 1 100%;
 }
 
@@ -160,11 +161,21 @@ export default {
   text-align: left;
 }
 
+
+
 @media all and (min-width: 600px) {
   .aside { flex: 2 0 0; }
+
+  .header-info {
+    display: flex;  
+    flex-flow: row wrap;
+    font-weight: bold;
+    text-align: left; 
+    justify-content:space-between;
+}
 }
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 1200px) {
   .main-container    { flex: 3 0px; }
   .main-container     { order: 2; }
   .aside-2 { order: 3; }
