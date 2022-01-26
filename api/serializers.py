@@ -14,6 +14,13 @@ class StorylineSerializer(serializers.Serializer):
     is_ending = serializers.BooleanField()
     content = serializers.CharField(style={'base_template': 'textarea.html'})
     parent = StorylineParentSerializer()
+    wealth      = serializers.IntegerField()
+    health      = serializers.IntegerField()   
+    story_date  = serializers.DateField()
+    papers_headline = serializers.CharField()
+    papers_content = serializers.CharField()
+    hero_position_x = serializers.IntegerField()
+    hero_position_y = serializers.IntegerField()
 
     def create(self, validated_data):
         """

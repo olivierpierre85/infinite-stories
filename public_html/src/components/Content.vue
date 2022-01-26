@@ -1,7 +1,7 @@
 <template>
   <div>
       <template v-if="showInfo">
-          <Info />
+          <Info :currentStoryLine="currentStoryLine" />
       </template>
       <template v-else>
         <Storyline :data="data" :isEnd="isEnd" :isLoading="isLoading" @newMessage="updateStoryline"/>
@@ -76,7 +76,8 @@ export default {
                     }
 
                     this.data = data;
-                    this.lastStoryLine= data.at(-1).id;
+                    this.lastStoryLine = data.at(-1).id;
+                    this.currentStoryLine = data.at(-2); //Last story line is last admin storyline
 
                     if(data.at(-1)["is_ending"]){
                         this.isEnd = true;

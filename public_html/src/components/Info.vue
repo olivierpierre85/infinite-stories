@@ -1,25 +1,33 @@
 <template>
-    <div class="parent">
-        <div class="div1"> The 5 may FDFD - Not long after the invasion of China </div>
-        <div class="div2">
+    <div class="wrapper">
+        <div class="header-info">       
+            <div class="header-health">
+                Health : 
+                <i class="nes-icon is-small heart" v-for="index in currentStoryLine.health" :key="index"></i>
+                <i class="nes-icon is-small is-transparent heart" v-for="index in (5-currentStoryLine.health)" :key="index"></i>
+            </div>
+            <div class="header-wealth">
+                Money :
+                <i class="nes-icon is-small coin" v-for="index in currentStoryLine.wealth" :key="index"></i>
+                <i class="nes-icon is-small is-transparent heart" v-for="index in (5-currentStoryLine.wealth)" :key="index"></i>
+            </div>
+        </div>
+        <div class="main-container ">
             Map
-            <img style="width: 100%;" src="https://static.olpiweb.be/infinite/worldmap.png"/>  
+            <canvas style="width: 100%;"  id="demo"></canvas>
+            <!-- <img style="width: 100%;" src="https://static.olpiweb.be/infinite/worldmap.png"/>   -->
         </div>
-        <div class="div3"> 
-        Health
-        <div>
-            <i class="nes-icon is-medium heart"></i>
-            <i class="nes-icon is-medium is-half heart"></i>
-            <i class="nes-icon is-medium is-transparent heart"></i>
-            <i class="nes-icon is-medium heart is-empty"></i>
-        </div>
-        Finance
-        <div>
-            <i class="nes-icon is-medium coin"></i>
-            <i class="nes-icon is-medium is-half coin"></i>
-            <i class="nes-icon is-medium is-transparent coin"></i>
-            <i class="nes-icon is-medium coin is-empty"></i>
-        </div>
+        <div class="aside aside-2"> 
+            <span class="header-story-date">
+                {{ formattedStoryDate }}
+            </span>
+            <hr/>
+            <h3 class="header-paper-title h3">
+                {{ currentStoryLine.papers_headline }}
+            </h3>
+            <div class="header-paper-content">
+                {{ currentStoryLine.papers_content }}
+            </div>
         </div>
     </div>
 </template>
@@ -33,16 +41,59 @@ export default {
             data: null, 
             isLoading: null,
             isEnd: false,
-            lastStoryLine:null,
         }
+    },
+    computed :{
+        formattedStoryDate : function () {
+            let date = new Date(this.currentStoryLine.story_date);
+            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let formatDate = date.toLocaleString('en-US', options);
+            return formatDate;
+        }
+    },
+    props : {
+        currentStoryLine : Object,
     },
     mounted () {
         this.isLoading = true;
         this.updateStoryline();
-
+        this.drawPosition();
         //this.timer = setInterval(this.updateStoryline, 1000);  
     },
     methods : {
+        drawPosition () {
+            //this.currentStoryLine
+            //TODO SAve somewhere else
+            var img_width = 1295;
+            var img_height = 651;
+            var demo = document.getElementById('demo');
+            var canvas = demo,
+            ctx = canvas.getContext('2d'),
+            img = new Image;
+            img.onload = start;
+            img.src = 'https://static.olpiweb.be/infinite/worldmap.png';
+
+            canvas.width = img_width;
+            canvas.height = img_height;
+            let centerX = this.currentStoryLine.hero_position_x;
+            let centerY = this.currentStoryLine.hero_position_y;
+
+            function start() {
+                ctx.drawImage(img, 0, 0);
+
+                //Draw hero position with a cross
+                ctx.moveTo(centerX-10, centerY-10);
+                ctx.lineTo(centerX+10, centerY+10);
+
+                ctx.moveTo(centerX-10, centerY+10);
+                ctx.lineTo(centerX+10, centerY-10);
+
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = "red";
+
+                ctx.stroke();
+            }
+        },
         updateStoryline () {
 
             let storyId = 8;
@@ -92,15 +143,31 @@ export default {
 
 <style scoped>
 
-.parent {
-display: grid;
-grid-template-columns: repeat(5, 1fr);
-grid-template-rows: repeat(5, 1fr);
-grid-column-gap: 0px;
-grid-row-gap: 0px;
+/* Flex Box containers */
+.wrapper {
+  display: flex;  
+  flex-flow: row wrap;
+  font-weight: bold;
+  text-align: center; 
 }
 
-.div1 { grid-area: 1 / 1 / 2 / 6; }
-.div2 { grid-area: 2 / 1 / 6 / 4; }
-.div3 { grid-area: 2 / 4 / 6 / 6; }
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.main-container  {
+  text-align: left;
+}
+
+@media all and (min-width: 600px) {
+  .aside { flex: 2 0 0; }
+}
+
+@media all and (min-width: 800px) {
+  .main-container    { flex: 3 0px; }
+  .main-container     { order: 2; }
+  .aside-2 { order: 3; }
+}
+
 </style>

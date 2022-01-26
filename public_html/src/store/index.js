@@ -27,7 +27,6 @@ export const store = createStore({
           state.isAdmin = ! state.isAdmin
         },
         updateShowInfo (state) {
-          console.log("Wata")
           state.showInfo = ! state.showInfo
         }
       },
