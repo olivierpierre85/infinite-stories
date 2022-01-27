@@ -1,6 +1,6 @@
 <template>
     <div class="nes-container footer" v-show="true">
-        <button type="button" class="nes-btn is-success footer-btn" @click="switchShowInfo" >Show Story Status</button>
+        <button type="button" class="nes-btn is-success footer-btn" @click="switchShowInfo" >Toggle Story Status</button>
         <button type="button" class="nes-btn" @click.alt="switchAdmin" v-bind:class="{ 'is-primary': isAdmin }">Admin</button>
     </div>
 </template>

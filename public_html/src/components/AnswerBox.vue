@@ -5,7 +5,6 @@
             <form>
             <textarea id="textarea_field" class="nes-textarea" required v-model="newContent"></textarea>
             <button type="button" class="nes-btn" @click="sendResponse">Send</button>
-            <button type="button" class="nes-btn" @click.alt="switchAdmin" v-bind:class="{ 'is-primary': isAdmin }">Admin</button>
             </form>
         </div>
         <div v-if="isEnd" class="nes-container with-title ">
@@ -18,6 +17,8 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: "AnswerBox",
     props : {
@@ -27,10 +28,12 @@ export default {
     data() {
         return {
             newContent: '',
-            isAdmin: false,
             isEnding: false
         }
     },
+    computed: mapState([
+        'isAdmin'
+    ]),
     methods : {
         sendResponse() {
             fetch(process.env.VUE_APP_API_URL + this.$route.params.storyId , {

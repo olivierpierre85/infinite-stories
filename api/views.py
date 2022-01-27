@@ -33,12 +33,22 @@ def story_detail(request, pk):
                 previous_storyline.content += "\r\n\r\n" + data["content"]
                 previous_storyline.save()
             else:
-                new_storyline = Storyline()
+                # new_storyline = Storyline()
 
+
+                # new_storyline.parent = Storyline.objects.get(pk=data["parent"]["id"])
+
+                # new_storyline.is_author = data["is_author"]
+                # new_storyline.is_ending = data["is_ending"]
+                # new_storyline.content = data["content"]
+
+                # new_storyline = new_storyline.parent
+                new_storyline = Storyline.objects.get(pk=data["parent"]["id"])
+                new_storyline.parent = Storyline.objects.get(pk=data["parent"]["id"])
                 new_storyline.is_author = data["is_author"]
                 new_storyline.is_ending = data["is_ending"]
                 new_storyline.content = data["content"]
-                new_storyline.parent = Storyline.objects.get(pk=data["parent"]["id"])
+                new_storyline.pk = None
                 new_storyline.save()
 
                 # Update the last storyline of the story

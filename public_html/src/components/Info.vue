@@ -162,7 +162,6 @@ export default {
 }
 
 
-
 @media all and (min-width: 600px) {
   .aside { flex: 2 0 0; }
 
@@ -172,7 +171,7 @@ export default {
     font-weight: bold;
     text-align: left; 
     justify-content:space-between;
-}
+    }
 }
 
 @media all and (min-width: 1200px) {

@@ -77,7 +77,12 @@ export default {
 
                     this.data = data;
                     this.lastStoryLine = data.at(-1).id;
-                    this.currentStoryLine = data.at(-2); //Last story line is last admin storyline
+                    console.log("last", data);
+                    if(data.at(-1).is_author) {
+                        this.currentStoryLine = data.at(-1);
+                    } else {
+                        this.currentStoryLine = data.at(-2); //TODO doesn't matter since copy, so it should be in ONE OBJECT in DB
+                    }
 
                     if(data.at(-1)["is_ending"]){
                         this.isEnd = true;
