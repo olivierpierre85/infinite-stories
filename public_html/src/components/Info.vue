@@ -71,7 +71,7 @@ export default {
             ctx = canvas.getContext('2d'),
             img = new Image;
             img.onload = start;
-            img.src = 'https://static.olpiweb.be/infinite/worldmap.png';
+            img.src = '../assets/worldmap.png';
 
             canvas.width = img_width;
             canvas.height = img_height;

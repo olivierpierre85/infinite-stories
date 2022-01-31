@@ -3,8 +3,8 @@
           <div class="message-list" >
                 <div class="message" v-for="(message, key) in data" v-bind:key="key">
                     <div class="message-img" v-bind:class="{ 'user': ! message.is_author}">
-                        <img v-if="message.is_author && message.showPicture" src="https://static.olpiweb.be/infinite/mcpixel.png"/>
-                        <img v-else-if="message.showPicture" class="float-end" src="https://static.olpiweb.be/infinite/melipixel.png"/>
+                        <img v-if="message.is_author && message.showPicture" src="../assets/mcpixel.png"/>
+                        <img v-else-if="message.showPicture" class="float-end" src="../assets/melipixel.png"/>
                     </div>
                     <!-- Ending adds blinking for your dialog, is also clikable -->
                     <div v-if="isEnd && ! message.is_author"  class="nes-container is-rounded is-dark is-message blinking" >
